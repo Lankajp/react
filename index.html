@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.min.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        margin-left: 10px;
+        padding-top: 10px;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+      }
+
+      .btn {
+        background: linear-gradient(to right, #f87fd6, #da1b60);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(to right, #f3f1f2, #f19dd2);
+        color: rgb(34, 32, 32);
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+
+      input[type="text"]::placeholder,
+      input[type="email"]::placeholder,
+      input[type="password"]::placeholder {
+        color: rgba(140, 138, 138, 0.8);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="title">E-mail</div>
+      <input type="text" placeholder="Введите e-mail" />
+    </div>
+    <div class="container">
+      <div class="title">Пароль</div>
+      <input type="text" placeholder="Введите пароль" />
+    </div>
+    <div class="container">
+      <button class="btn">Отправить</button>
+    </div>
+
+    <script>
+      const LoginForm = () => {
+        const [email, setEmail] = useState("");
+        const [password, setPassword] = useState("");
+
+        const handleLogin = async (e) => {
+          e.preventDefault();
+
+          const response = await fetch("http://example.com/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+          console.log(data); // Handle response data accordingly
+        };
+
+        return (
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Login</button>
+          </form>
+        );
+
+        fetchJsonp(url, {
+          timeout: 10000,
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(JSON.stringify(data));
+            if (data.status === 400) {
+              error.textContent = data.message;
+            } else if (data.results === null) {
+              error.textContent = "Неверный e-mail или пароль";
+            } else {
+              address1.value = data.results[0].address1;
+            }
+          })
+          .catch((ex) => {
+            console.log(ex);
+          });
+        false;
+      };
+    </script>
+  </body>
+</html>
